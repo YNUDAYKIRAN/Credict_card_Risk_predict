@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Credit Card Risk Prediction</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #74abe2, #5563de);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        padding: 40px;
+        width: 520px;
+        text-align: center;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(8px);
+        transition: transform 0.3s ease;
+      }
+
+      .container:hover {
+        transform: translateY(-5px);
+      }
+
+      .input-group {
+        margin: 4px 0;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        text-align: center;
+        font-size: 0.9rem;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        gap: 10px 14px;
+        margin-bottom: 16px;
+      }
+
+      @media (max-width: 520px) {
+        .form-grid {
+          grid-template-columns: 1fr; /* stack on small screens */
+        }
+      }
+
+      button {
+        margin-top: 4px;
+        background: #fff;
+        color: #5563de;
+        padding: 10px 25px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background: #5563de;
+        color: #fff;
+        transform: scale(1.05);
+      }
+
+      .result-box {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.2);
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #fff;
+      }
+
+      footer {
+        margin-top: 30px;
+        font-size: 0.9rem;
+        color: #f0f0f0;
+      }
+
+      .title-icon {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="title-icon">💳</div>
+      <h1>Credit Card Risk Prediction</h1>
+
+      <form action="/predict" method="POST">
+        <div class="form-grid">
+          <div class="input-group">
+            <input type="number" name="Age" placeholder="Age" required />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="number"
+              name="NumberOfOpenCreditLinesAndLoans_yeo_trim"
+              placeholder="Open Credit Lines / Loans"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="number"
+              name="NumberRealEstateLoansOrLines_yeo_trim"
+              placeholder="Real Estate Loans / Lines"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="number"
+              name="MonthlyIncome_replaced_yeo_trim"
+              placeholder="Monthly Income"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="number"
+              name="Gender_male"
+              placeholder="Gender (1 = Male, 0 = Female)"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="number"
+              name="Region_East"
+              placeholder="Region East (0/1)"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="number"
+              name="Region_North"
+              placeholder="Region North (0/1)"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="number"
+              name="Region_South"
+              placeholder="Region South (0/1)"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="number"
+              name="Region_west"
+              placeholder="Region West (0/1)"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="number"
+              name="RentedOwnHouse"
+              placeholder="Rented / Own House (0/1)"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="number"
+              name="Occupation"
+              placeholder="Occupation (encoded)"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="number"
+              name="Education"
+              placeholder="Education (encoded)"
+              required
+            />
+          </div>
+        </div>
+
+        <button type="submit">Predict Risk</button>
+      </form>
+
+      {% if prediction_text %}
+      <div class="result-box">{{ prediction_text }}</div>
+      {% endif %}
+    </div>
+
+    <footer>Developed by <b>Uday Kiran</b> </footer>
+  </body>
+</html>
